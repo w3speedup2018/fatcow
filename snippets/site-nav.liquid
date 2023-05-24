@@ -62,8 +62,9 @@
 												<div class="menu-promotion-background-image">
 													{%- assign image = block.settings.promotion_image -%}
 													<img
-														src="{{ image | image_url: width: 240 }}" alt="{{ image.alt | escape }}"
-														srcset="{{ image | image_url: width: 240 }} 180w, {{ image | image_url: width: 360 }} 300w, {{ image | image_url: width: 600 }} 480w, {{ image | image_url: width: 860 }} 720w"
+                                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad"
+														data-src="{{ image | image_url: width: 240 }}" alt="{{ image.alt | escape }}"
+														data-srcset="{{ image | image_url: width: 240 }} 180w, {{ image | image_url: width: 360 }} 300w, {{ image | image_url: width: 600 }} 480w, {{ image | image_url: width: 860 }} 720w"
 														sizes="380px"
 														width="{{ image.width }}" height="{{ image.height }}"
 														loading="lazy" 

@@ -11,7 +11,9 @@ If you plan to remove PageFly, please see the guide in our help center first: ht
   endif
 -%}
 <html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ direction }}">
-<head>{% render 'pagefly-head' %}
+<head>
+    {% render 'wnw_header' %}
+    {% render 'pagefly-head' %}
 
 	<meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -51,10 +53,25 @@ If you plan to remove PageFly, please see the guide in our help center first: ht
 
   {%- render 'head-preloader' -%}
   {%- render 'head-variables', direction: direction -%}
+  {% if template contains "index" %}
+      {% render "index-css" %}
+  {% elsif template contains "collection" %}
+      {% render "collection-css" %}
+  {% elsif template contains "product" %}
+      {% render "product-css" %}
+  {% else %}
+      {% render "all-css" %}
+  {% endif %}
+  <link data-href="{{ 'theme.css' | asset_url }}" rel="stylesheet" type="text/css" media="all" />
+  
 
-  {{ 'theme.css' | asset_url | stylesheet_tag }}
-
-	{{ content_for_header }}
+	{%- if request.design_mode or template contains 'cart' or template contains 'checkout' -%}
+        {{ content_for_header }}
+    {%- else -%}
+        {% capture content_for_header2 %}{{ content_for_header }}{% endcapture %}
+        {{ content_for_header2 | replace: ' defer="defer" ', ' type="lazyload_int" ' | replace: " src=", " data-src="| replace: "DOMContentLoaded", "w3-DOMContentLoaded" | replace: "window.addEventListener('load', asyncLoad, false);", "window.addEventListener('w3-DOMContentLoaded', asyncLoad, false);" | replace: "addEventListener('load', prefetchAssets);", "addEventListener('w3-DOMContentLoaded', prefetchAssets);" }}
+        <script>var trekkie=[];trekkie.integrations=!0;window.BOOMR={},window.BOOMR.version=true;</script>
+    {%- endif -%}
 
   <script>
     const rbi = [];
@@ -98,6 +115,8 @@ If you plan to remove PageFly, please see the guide in our help center first: ht
 
 
 	{{ shop.metafields.loox["global_html_head"] }}
+ {% render 'custom-css' %}
+ {% render 'app-block' %}
 </head>
 
 <body id="{{ page_title | handle }}" class="no-touchevents 

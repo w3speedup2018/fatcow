@@ -1,3 +1,8 @@
+{% if template contains "index" or template contains "collection" or template contains "product" %}
+	
+{% else %}
+	<style>.video-background{position:absolute;width:100%;height:100%;top:0;left:0;display:flex;justify-content:center;align-items:center;background:var(--color-third-background-main)}.video-background video{position:relative;z-index:0;width:100%;height:100%;top:0;left:0;object-fit:cover;opacity:0;transition:all .3s linear;border-radius:var(--border-radius-cards)}.video-background .video-text__background.loaded video{opacity:1}.video-background .video-text__image figure{border-radius:var(--border-radius-cards)}.video-text__background,.video-text__container{height:100%}</style>
+{% endif %}
 <div id="section-{{ section.id }}" class="container--large {% unless section.settings.remove_margin %} container--vertical-space {% endunless %} {% if section.settings.section_background_color != "rgba(0,0,0,0)" %} container--has-background {% endif %} remove-empty-space">
 
   {%- render 'section-heading', heading: section.settings.heading, subheading: section.settings.subheading, heading_tag: section.settings.seo_h_tag, layout: section.settings.section_heading_layout -%}
@@ -72,7 +77,7 @@
 
             {%- else -%}
 
-              {{ 'component-video-background.css' | asset_url | stylesheet_tag }}
+              <link data-href="{{ 'component-video-background.css' | asset_url }}" rel="stylesheet" type="text/css" media="all" />
 
               <div id="video-background-{{ section.id }}" class="video-background" style="display:block">
 
