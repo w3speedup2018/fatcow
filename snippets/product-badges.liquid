@@ -1,0 +1,53 @@
+<div class="product-item__badges {{ text_class }}">
+
+  {%- if product.available == false -%}
+    <span class="product-item__badge product-item__badge--sold"
+      style="background-color: {{ settings.product_card_badge_sold_out_color }}; color: {{ settings.product_card_badge_sold_out_text_color }}"
+    >
+      {{ 'products.grid.sold_out_product' | t }}
+    </span>
+  {%- endif -%}
+
+  {%- if product.compare_at_price > product.price -%}
+
+    <span class="product-item__badge product-item__badge--sale"
+      style="background-color: {{ settings.product_card_badge_sale_color }}; color: {{ settings.product_card_badge_sale_text_color }}"
+    > 
+      {%- liquid
+        if settings.product_card_badge_sale_type == 'percentage'
+          echo product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round | prepend: '-' | append: '%'
+        elsif settings.product_card_badge_sale_type == 'amount'
+          assign saved = product.compare_at_price | minus: product.price | money
+          echo 'products.grid.save_amount_html' | t: amount: saved
+        else 
+          echo 'products.grid.on_sale_product' | t
+        endif
+      -%}
+    </span>
+  {%- endif -%}
+
+  {%- if settings.product_card_badge_custom_1_tags != blank and product.tags contains settings.product_card_badge_custom_1_tags -%}
+    <span class="product-item__badge product-item__badge--{{ settings.product_card_badge_custom_1_text | handleize }}"
+      style="background-color: {{ settings.product_card_badge_custom_1_color }}; color: {{ settings.product_card_badge_custom_1_text_color }}"
+    >
+      {{ settings.product_card_badge_custom_1_text }}
+    </span>
+  {%- endif -%}
+
+  {%- if settings.product_card_badge_custom_2_tags != blank and product.tags contains settings.product_card_badge_custom_2_tags -%}
+    <span class="product-item__badge product-item__badge--{{ settings.product_card_badge_custom_2_text | handleize }}"
+      style="background-color: {{ settings.product_card_badge_custom_2_color }}; color: {{ settings.product_card_badge_custom_2_text_color }}"
+    >
+      {{ settings.product_card_badge_custom_2_text }}
+    </span>
+  {%- endif -%}
+
+  {%- if settings.product_card_badge_custom_3_tags != blank and product.tags contains settings.product_card_badge_custom_3_tags -%}
+    <span class="product-item__badge product-item__badge--{{ settings.product_card_badge_custom_3_text | handleize }}"
+      style="background-color: {{ settings.product_card_badge_custom_3_color }}; color: {{ settings.product_card_badge_custom_3_text_color }}"
+    >
+      {{ settings.product_card_badge_custom_3_text }}
+    </span>
+  {%- endif -%}
+
+</div>

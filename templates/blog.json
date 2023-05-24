@@ -1,0 +1,1 @@
+{"sections":{"main":{"type":"main-blog","blocks":{"title":{"type":"title","settings":{}},"summary":{"type":"summary","settings":{"excerpt_limit":24}}},"block_order":["title","summary"],"settings":{"enable_tags":false,"layout":"grid-3 grid-lap-1","post_limit":12,"blog_show_image":true,"image_aspect_ratio":"1.33333"}}},"order":["main"]}
